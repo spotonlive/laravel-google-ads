@@ -26,6 +26,8 @@ products.
 
 ```php
 use LaravelGoogleAds\AdWords\AdWordsUser;
+use Campaign;
+use CampaignOperation;
 
 class Service
 {
