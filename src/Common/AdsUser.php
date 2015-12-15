@@ -249,6 +249,10 @@ abstract class AdsUser extends \AdsUser
      */
     public function getConfig()
     {
+        if (!$this->config) {
+            $this->config = config('google-ads');
+        }
+
         return $this->config;
     }
 

@@ -112,22 +112,6 @@ class AdWordsUser extends \AdWordsUser
     }
 
     /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * @param array $config
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
-    }
-
-    /**
      * Loads the settings for this client library. If the settings INI file
      * located at <var>$settingsPath</var> cannot be loaded, then the
      * parameters passed into this method are used.
@@ -385,5 +369,25 @@ class AdWordsUser extends \AdWordsUser
         ) {
             define($name, $value);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        if (!$this->config) {
+            $this->config = config('google-ads');
+        }
+
+        return $this->config;
+    }
+
+    /**
+     * @param array $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
     }
 }

@@ -8,6 +8,16 @@ This project hosts the PHP client library for the various SOAP-based Ads APIs
 ### Features, requirements, support etc.
 See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md)
 
+### Setup
+Run `$ composer require nikolajlovenhardt/laravel-google-ads`
+
+Add provider
+```php
+'providers' => [
+    LaravelGoogleAds\LaravelGoogleAdsProvider::class,
+],
+```
+
 ### Basic usage
 
 The following example is for AdWords, but the general code applies to all
