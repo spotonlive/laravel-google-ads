@@ -9,7 +9,8 @@ namespace LaravelGoogleAds\Common;
  */
 abstract class AdsUser extends \AdsUser
 {
-    protected $config = [];
+    /** @var array|null */
+    protected $config = null;
 
     private $libVersion;
     private $libName;
@@ -35,7 +36,7 @@ abstract class AdsUser extends \AdsUser
         $config = $this->getConfig();
 
         $this->libVersion = $config['common']['build']['LIB_VERSION'];
-        $this->libName = $config['common']['build'];
+        $this->libName = $config['common']['build']['LIB_NAME'];
     }
 
     /**

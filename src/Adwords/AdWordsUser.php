@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelGoogleAds\Adwords;
+namespace LaravelGoogleAds\AdWords;
 
 class AdWordsUser extends \AdWordsUser
 {
@@ -10,8 +10,8 @@ class AdWordsUser extends \AdWordsUser
     /** @var string */
     protected $libVersion;
 
-    /** @var array */
-    protected $config = [];
+    /** @var array|null */
+    protected $config = null;
 
     private $requestHeaderElements;
     private $defaultServer;
@@ -32,14 +32,12 @@ class AdWordsUser extends \AdWordsUser
         $clientCustomerId = null,
         $oauth2Info = null
     ) {
-        parent::__construct(null, $developerToken, $userAgent, $clientCustomerId, null, $oauth2Info);
-
         $config = $this->getConfig();
 
         $this->libName = $config['adWords']['build']['LIB_NAME'];
         $this->libVersion = $config['common']['build']['LIB_VERSION'];
 
-        $apiProperties = $config['api.properties'];
+        $apiProperties = $config['adWords']['api.properties'];
 
         $versions = explode(',', $apiProperties['api.versions']);
         $defaultVersion = $versions[count($versions) - 1];
@@ -376,7 +374,7 @@ class AdWordsUser extends \AdWordsUser
      */
     public function getConfig()
     {
-        if (!$this->config) {
+        if (is_null($this->config)) {
             $this->config = config('google-ads');
         }
 
