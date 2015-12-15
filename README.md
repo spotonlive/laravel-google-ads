@@ -60,5 +60,5 @@ class Service
 };
 ```
 
-``` Dependencies
+### Dependencies
 See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md)
