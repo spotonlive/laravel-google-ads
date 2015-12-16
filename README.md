@@ -1,12 +1,11 @@
-## Google Ads API For laravel
+## Google Ads API for Laravel
 
 ## THIS PACKAGE IS UNDER DEVELOPMENT, AND SHOULD NOT BE USED IN PRODUCTION ENVIRONMENT
 
-This project hosts the PHP client library for the various SOAP-based Ads APIs
-(AdWords, AdExchange Buyer, and DFP) at Google.
+This project hosts the PHP client library for the various SOAP-based Ads APIs (AdWords, AdExchange Buyer, and DFP) at Google.
 
 ### Features, requirements, support etc.
-See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md)
+See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master)
 
 ### Setup
 - Run `$ composer require nikolajlovenhardt/laravel-google-ads`
