@@ -24,6 +24,8 @@ See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-l
     - refreshToken
 
 ### Generate refresh token
+*This requires that the `clientId` and `clientSecret` is from a native application*
+
 Run `$ php artisan googleads:token:generate` and open the authorization url. Grant access to the app, and input the
 access token in the console. Copy the refresh token into your configuration `config/google-ads.php`
 
