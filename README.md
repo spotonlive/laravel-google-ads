@@ -36,9 +36,10 @@ products.
 
 
 ```php
-use LaravelGoogleAds\AdWords\AdWordsUser;
 use Campaign;
+use CampaignService;
 use CampaignOperation;
+use LaravelGoogleAds\AdWords\AdWordsUser;
 
 class Service
 {
@@ -50,6 +51,7 @@ class Service
         $user->LogDefaults();
 
         // Instantiate the desired service class by calling the get***Service method on the AdWordsUser instance.
+        /** @var CampaignService $campaignService */
         $campaignService = $user->GetService('CampaignService', 'v201509');
 
         // Create data objects and invoke methods on the service class instance. The
