@@ -9,14 +9,23 @@ This project hosts the PHP client library for the various SOAP-based Ads APIs
 See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md)
 
 ### Setup
-Run `$ composer require nikolajlovenhardt/laravel-google-ads`
+1. Run `$ composer require nikolajlovenhardt/laravel-google-ads`
 
-Add provider
+2. Add provider
 ```php
 'providers' => [
     LaravelGoogleAds\LaravelGoogleAdsProvider::class,
 ],
 ```
+
+3. Run `$ php artisan vendor:publish` to publish the configuration file `config/google-ads.php` and insert:
+- developerToken
+- clientId & clientSecret
+- refreshToken
+
+### Generate refresh token
+Run `$ php artisan googleads:token:generate` and open the authorization url. Grant access to the app, and input the
+access token in the console. Copy the refresh token into your configuration `config/google-ads.php`
 
 ### Basic usage
 
