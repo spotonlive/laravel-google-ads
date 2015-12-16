@@ -2,6 +2,8 @@
 
 namespace LaravelGoogleAds\AdWords;
 
+use LaravelGoogleAds\Exceptions\ValidationException;
+
 class AdWordsUser extends \AdWordsUser
 {
     /** @var string */
@@ -83,7 +85,7 @@ class AdWordsUser extends \AdWordsUser
         );
 
         if ($clientId !== null) {
-            throw new \ValidationException(
+            throw new ValidationException(
                 'clientId',
                 $clientId,
                 'The authentication key "clientId" has been changed to'
@@ -359,12 +361,92 @@ class AdWordsUser extends \AdWordsUser
      * @param string $name the name of the constant
      * @param string $value the value of the constant
      */
-    private function Define($name, $value) {
+    private function Define($name, $value)
+    {
         if (
             !defined($name)
             || (constant($name) != $value)
         ) {
             define($name, $value);
+        }
+    }
+
+    /**
+     * Validate user
+     *
+     * @throws ValidationException
+     */
+    public function ValidateUser()
+    {
+        if ($this->GetOAuth2Info() === null) {
+            throw new ValidationException(
+                'OAuth2Info',
+                null,
+                'OAuth 2.0 configuration is required.'
+            );
+        }
+
+        $this->ValidateOAuth2Info();
+
+        if (
+            $this->GetUserAgent() === null
+            || trim($this->GetUserAgent()) === ''
+            || strpos($this->GetUserAgent(), self::DEFAULT_USER_AGENT) !== false
+        ) {
+            throw new ValidationException(
+                'userAgent',
+                null,
+                sprintf(
+                    "The property userAgent is required and cannot be  null, the empty string, or the default [%s]",
+                    self::DEFAULT_USER_AGENT
+                )
+            );
+        }
+
+        if (is_null($this->GetDeveloperToken()))
+        {
+            throw new ValidationException(
+                'developerToken',
+                null,
+                'developerToken is required and cannot be null.'
+            );
+        }
+    }
+
+    /**
+     * Validate OAuth2Info
+     *
+     * @throws ValidationException
+     */
+    protected function ValidateOAuth2Info()
+    {
+        $requiredFields = [
+            'client_id',
+            'client_secret',
+        ];
+
+        foreach ($requiredFields as $field) {
+            if (empty($this->oauth2Info[$field])) {
+                throw new ValidationException(
+                    $field,
+                    null,
+                    sprintf(
+                        '%s is required.',
+                        $field
+                    )
+                );
+            }
+        }
+
+        if (
+            empty($this->oauth2Info['access_token'])
+            && empty($this->oauth2Info['refresh_token'])
+        ) {
+            throw new ValidationException(
+                'refresh_token',
+                null,
+                'Either the refresh_token or the access_token is required.'
+            );
         }
     }
 
