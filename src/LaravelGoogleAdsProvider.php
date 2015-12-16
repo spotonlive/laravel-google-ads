@@ -22,6 +22,11 @@ class LaravelGoogleAdsProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfig();
+
+        // Console commands
+        $this->commands([
+            Console\GenerateRefreshTokenCommand::class,
+        ]);
     }
 
     /**

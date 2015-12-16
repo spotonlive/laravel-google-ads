@@ -13,7 +13,6 @@ class AdWordsUser extends \AdWordsUser
     /** @var array|null */
     protected $config = null;
 
-    private $requestHeaderElements;
     private $defaultServer;
     private $defaultVersion;
     private $logsDirectory;
@@ -270,7 +269,7 @@ class AdWordsUser extends \AdWordsUser
             'AUTH_SERVER',
             'https://accounts.google.com'
         );
-        
+
         // OAuth2.
         $this->oauth2Handler = $this->GetDefaultOAuth2Handler(
             $this->GetSetting(
@@ -367,6 +366,182 @@ class AdWordsUser extends \AdWordsUser
         ) {
             define($name, $value);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOauth2Handler()
+    {
+        return $this->oauth2Handler;
+    }
+
+    /**
+     * @param mixed $oauth2Handler
+     */
+    public function setOauth2Handler($oauth2Handler)
+    {
+        $this->oauth2Handler = $oauth2Handler;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultServer()
+    {
+        return $this->defaultServer;
+    }
+
+    /**
+     * @param mixed $defaultServer
+     */
+    public function setDefaultServer($defaultServer)
+    {
+        $this->defaultServer = $defaultServer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultVersion()
+    {
+        return $this->defaultVersion;
+    }
+
+    /**
+     * @param mixed $defaultVersion
+     */
+    public function setDefaultVersion($defaultVersion)
+    {
+        $this->defaultVersion = $defaultVersion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogsDirectory()
+    {
+        return $this->logsDirectory;
+    }
+
+    /**
+     * @param mixed $logsDirectory
+     */
+    public function setLogsDirectory($logsDirectory)
+    {
+        $this->logsDirectory = $logsDirectory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoapCompression()
+    {
+        return $this->soapCompression;
+    }
+
+    /**
+     * @param mixed $soapCompression
+     */
+    public function setSoapCompression($soapCompression)
+    {
+        $this->soapCompression = $soapCompression;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoapCompressionLevel()
+    {
+        return $this->soapCompressionLevel;
+    }
+
+    /**
+     * @param mixed $soapCompressionLevel
+     */
+    public function setSoapCompressionLevel($soapCompressionLevel)
+    {
+        $this->soapCompressionLevel = $soapCompressionLevel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWsdlCache()
+    {
+        return $this->wsdlCache;
+    }
+
+    /**
+     * @param mixed $wsdlCache
+     */
+    public function setWsdlCache($wsdlCache)
+    {
+        $this->wsdlCache = $wsdlCache;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForceHttpVersion()
+    {
+        return $this->forceHttpVersion;
+    }
+
+    /**
+     * @param mixed $forceHttpVersion
+     */
+    public function setForceHttpVersion($forceHttpVersion)
+    {
+        $this->forceHttpVersion = $forceHttpVersion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForceAddXsiTypes()
+    {
+        return $this->forceAddXsiTypes;
+    }
+
+    /**
+     * @param mixed $forceAddXsiTypes
+     */
+    public function setForceAddXsiTypes($forceAddXsiTypes)
+    {
+        $this->forceAddXsiTypes = $forceAddXsiTypes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthServer()
+    {
+        return $this->authServer;
+    }
+
+    /**
+     * @param mixed $authServer
+     */
+    public function setAuthServer($authServer)
+    {
+        $this->authServer = $authServer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOauth2Info()
+    {
+        return $this->oauth2Info;
+    }
+
+    /**
+     * @param mixed $oauth2Info
+     */
+    public function setOauth2Info($oauth2Info)
+    {
+        $this->oauth2Info = $oauth2Info;
     }
 
     /**
