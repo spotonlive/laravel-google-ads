@@ -4,7 +4,7 @@ namespace LaravelGoogleAds\Services;
 
 use LaravelGoogleAds\AdWords\AdwordsUser;
 
-class AdWordsService
+class AdWordsService implements AdWordsServiceInterface
 {
     /**
      * Generate authorization url
@@ -52,13 +52,13 @@ class AdWordsService
         /** @var \SimpleOAuth2Handler $oAuth2Handler */
         $oAuth2Handler = $user->getOAuth2Handler();
 
-        $user->setOauth2Info(
-            $oAuth2Handler->GetAccessToken(
-                $user->getOauth2Info(),
-                $accessCode,
-                $redirectUri
-            )
+        $accessToken = $oAuth2Handler->GetAccessToken(
+            $user->getOauth2Info(),
+            $accessCode,
+            $redirectUri
         );
+
+        $user->setOauth2Info($accessToken);
 
         return $user->getOauth2Info();
     }

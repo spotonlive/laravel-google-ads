@@ -30,7 +30,12 @@
   },
   "autoload": {
     "psr-4": {
-      "LaravelGoogleAds\\": "src/"
+      "LaravelGoogleAds\\": "src/LaravelGoogleAds"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LaravelGoogleAdsTests\\": "tests/"
     }
   }
 }

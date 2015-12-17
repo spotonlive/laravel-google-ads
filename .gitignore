@@ -1,0 +1,4 @@
+vendor/
+build/*
+codeclimate.json
+composer.lock
