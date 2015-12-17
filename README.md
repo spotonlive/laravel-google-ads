@@ -1,14 +1,14 @@
 ## Google Ads API for Laravel
 
 <p align="center">
-![laravel-google-ads](https://cloud.githubusercontent.com/assets/3541622/11866448/7da4660e-a4ab-11e5-9ef1-941342e177bb.png)
+<img src="https://cloud.githubusercontent.com/assets/3541622/11866448/7da4660e-a4ab-11e5-9ef1-941342e177bb.png" alt="">
+</p>
 
 [![Laravel 5.1](https://img.shields.io/badge/Laravel-5.1-orange.svg?style=flat-square)](http://laravel.com) [![Latest Stable Version](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/v/stable)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![Total Downloads](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/downloads)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![Latest Unstable Version](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/v/unstable)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![License](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/license)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![Build Status](https://travis-ci.org/nikolajlovenhardt/laravel-google-ads.svg?branch=master)](https://travis-ci.org/nikolajlovenhardt/laravel-google-ads) [![Code Climate](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads/badges/gpa.svg)](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads) [![Test Coverage](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads/badges/coverage.svg)](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads/coverage)
-</p>
 
 This project is an integration of [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master) in Laravel 5.1.
 
-### Installation & setup
+### Setup
 - Run `$ composer require nikolajlovenhardt/laravel-google-ads`
 
 - Add provider
