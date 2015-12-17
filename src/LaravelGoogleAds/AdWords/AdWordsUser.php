@@ -15,16 +15,37 @@ class AdWordsUser extends \AdWordsUser
     /** @var array|null */
     protected $config = null;
 
+    /** @var string */
     private $defaultServer;
+
+    /** @var string */
     private $defaultVersion;
+
+    /** @var string */
     private $logsDirectory;
+
+    /** @var string */
     private $soapCompression;
+
+    /** @var string */
     private $soapCompressionLevel;
+
+    /** @var boolean */
     private $wsdlCache;
+
+    /** @var boolean */
     private $forceHttpVersion;
+
+    /** @var string */
     private $forceAddXsiTypes;
+
+    /** @var string */
     private $authServer;
+
+    /** @var string */
     private $oauth2Info;
+
+    /** @var string */
     private $oauth2Handler;
 
     public function __construct(
@@ -46,38 +67,6 @@ class AdWordsUser extends \AdWordsUser
 
         $authConfig = $config['adWords']['auth'];
 
-        $developerToken = $this->GetAuthVarValue(
-            $developerToken,
-            'developerToken',
-            $authConfig
-        );
-
-        $userAgent = $this->GetAuthVarValue(
-            $userAgent,
-            self::USER_AGENT_HEADER_NAME,
-            $authConfig
-        );
-
-        $clientCustomerId = $this->GetAuthVarValue(
-            $clientCustomerId,
-            'clientCustomerId',
-            $authConfig
-        );
-
-        $oauth2Info = $this->GetAuthVarValue(
-            $oauth2Info,
-            'OAUTH2',
-            $authConfig
-        );
-
-        $scopes = [];
-
-        if (isset($oauth2Info['oAuth2AdditionalScopes'])) {
-            $scopes = explode(',', $oauth2Info['oAuth2AdditionalScopes']);
-        }
-
-        $scopes[] = self::OAUTH2_SCOPE;
-
         $clientId = $this->GetAuthVarValue(
             null,
             'clientId',
@@ -93,12 +82,13 @@ class AdWordsUser extends \AdWordsUser
             );
         }
 
-        $this->SetOAuth2Info($oauth2Info);
-        $this->SetUserAgent($userAgent);
-        $this->SetClientLibraryUserAgent($userAgent);
-        $this->SetClientCustomerId($clientCustomerId);
-        $this->SetDeveloperToken($developerToken);
-        $this->SetScopes($scopes);
+        $this->setConfiguration(
+            $authConfig,
+            $developerToken,
+            $userAgent,
+            $clientCustomerId,
+            $oauth2Info
+        );
 
         $settingsConfig = $config['adWords']['settings'];
 
@@ -108,6 +98,71 @@ class AdWordsUser extends \AdWordsUser
             $defaultServer,
             getcwd(), dirname(__FILE__)
         );
+    }
+
+    /**
+     * Set configuration
+     *
+     * @param array $authConfig
+     * @param null $developerToken
+     * @param null $userAgent
+     * @param null $clientCustomerId
+     * @param null $oauth2Info
+     */
+    protected function setConfiguration(
+        array $authConfig,
+        $developerToken = null,
+        $userAgent = null,
+        $clientCustomerId = null,
+        $oauth2Info = null
+    ) {
+
+        // User agent
+        $userAgent = $this->GetAuthVarValue(
+            $userAgent,
+            self::USER_AGENT_HEADER_NAME,
+            $authConfig
+        );
+
+        $this->SetClientLibraryUserAgent($userAgent);
+
+        // Client customer id
+        $clientCustomerId = $this->GetAuthVarValue(
+            $clientCustomerId,
+            'clientCustomerId',
+            $authConfig
+        );
+
+        // OAuth2 info
+        $oauth2Info = $this->GetAuthVarValue(
+            $oauth2Info,
+            'OAUTH2',
+            $authConfig
+        );
+
+        $this->SetOAuth2Info($oauth2Info);
+
+        // Developer token
+        $developerToken = $this->GetAuthVarValue(
+            $developerToken,
+            'developerToken',
+            $authConfig
+        );
+
+        $this->SetDeveloperToken($developerToken);
+
+        // Scopes
+        $scopes = [];
+
+        $scopes[] = self::OAUTH2_SCOPE;
+
+        if (isset($oauth2Info['oAuth2AdditionalScopes'])) {
+            $scopes = explode(',', $oauth2Info['oAuth2AdditionalScopes']);
+        }
+
+        $this->SetScopes($scopes);
+        $this->SetUserAgent($userAgent);
+        $this->SetClientCustomerId($clientCustomerId);
     }
 
     /**
