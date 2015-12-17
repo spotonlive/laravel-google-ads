@@ -3,10 +3,10 @@
   "type": "library",
   "description": "Google Ads API for Laravel",
   "keywords": [
-    "google",
+    "laravel",
     "ads",
     "adwords",
-    "laravel"
+    "google"
   ],
   "homepage": "https://github.com/nikolajlovenhardt/laravel-google-ads",
   "license": "MIT",
