@@ -86,7 +86,7 @@ class Service
 ```
 
 ### Features, requirements, support etc.
-See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master)
+See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md)
 
 ### Dependencies
-- [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md) hosts the PHP client library for the various SOAP-based Ads APIs (AdWords, AdExchange Buyer, and DFP) at Google.
+- [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib) hosts the PHP client library for the various SOAP-based Ads APIs (AdWords, AdExchange Buyer, and DFP) at Google.
