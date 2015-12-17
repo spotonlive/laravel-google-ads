@@ -2,6 +2,8 @@
 
 [![Laravel 5.1](https://img.shields.io/badge/Laravel-5.1-orange.svg?style=flat-square)](http://laravel.com) [![Latest Stable Version](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/v/stable)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![Total Downloads](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/downloads)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![Latest Unstable Version](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/v/unstable)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![License](https://poser.pugx.org/nikolajlovenhardt/laravel-google-ads/license)](https://packagist.org/packages/nikolajlovenhardt/laravel-google-ads) [![Build Status](https://travis-ci.org/nikolajlovenhardt/laravel-google-ads.svg?branch=master)](https://travis-ci.org/nikolajlovenhardt/laravel-google-ads) [![Code Climate](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads/badges/gpa.svg)](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads) [![Test Coverage](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads/badges/coverage.svg)](https://codeclimate.com/github/nikolajlovenhardt/laravel-google-ads/coverage)
 
+This project is an integration of [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master) in Laravel 5.1.
+
 ### Setup
 - Run `$ composer require nikolajlovenhardt/laravel-google-ads`
 
