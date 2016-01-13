@@ -6,7 +6,7 @@
 
 ## Google Ads API for Laravel
 
-This project is an integration of [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master) in Laravel 5.1.
+This project is an integration of [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib) in Laravel 5.1.
 
 ### Setup
 - Run `$ composer require nikolajlovenhardt/laravel-google-ads`
