@@ -18,8 +18,9 @@
     }
   ],
   "require": {
-    "php": ">=5.5.0",
-    "laravel/framework": "5.*",
+    "php": ">=5.5.9",
+    "illuminate/console": "~5.1",
+    "illuminate/support": "~5.1",
     "googleads/googleads-php-lib": "~6.6.0"
   },
   "require-dev": {
