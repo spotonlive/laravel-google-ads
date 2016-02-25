@@ -36,6 +36,11 @@ $app->register(LaravelGoogleAds\LaravelGoogleAdsProvider::class);
     - clientId & clientSecret
     - refreshToken
 
+- Add config to `bootstrap/app.php`
+```
+$app->configure('google-ads');
+```
+
 ### Generate refresh token
 *This requires that the `clientId` and `clientSecret` is from a native application.*
 
