@@ -11,8 +11,10 @@ This project is an integration of [`googleads/googleads-php-lib`](https://github
 ### Setup
 - Run `$ composer require nikolajlovenhardt/laravel-google-ads`
 
-#### Laravel 
+#### Laravel
+
 - Add provider to config/app.php
+
 ```php
 'providers' => [
     LaravelGoogleAds\LaravelGoogleAdsProvider::class,
@@ -27,7 +29,8 @@ This project is an integration of [`googleads/googleads-php-lib`](https://github
 #### Lumen
 
 - Add provider to `bootstrap/app.php`
-```
+
+```php
 $app->register(LaravelGoogleAds\LaravelGoogleAdsProvider::class);
 ```
 
@@ -37,7 +40,8 @@ $app->register(LaravelGoogleAds\LaravelGoogleAdsProvider::class);
     - refreshToken
 
 - Add config to `bootstrap/app.php`
-```
+
+```php
 $app->configure('google-ads');
 ```
 
