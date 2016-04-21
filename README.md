@@ -62,6 +62,7 @@ products.
 
 namespace App\Services;
 
+use Money;
 use Budget;
 use Campaign;
 use CampaignService;
