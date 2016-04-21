@@ -61,6 +61,7 @@ products.
 use Campaign;
 use CampaignService;
 use CampaignOperation;
+use BiddingStrategyConfiguration;
 use LaravelGoogleAds\AdWords\AdWordsUser;
 
 class Service
