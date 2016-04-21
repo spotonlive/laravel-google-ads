@@ -58,6 +58,11 @@ products.
 
 
 ```php
+<?php
+
+namespace App\Services;
+
+use Budget;
 use Campaign;
 use CampaignService;
 use CampaignOperation;
@@ -73,16 +78,21 @@ class Service
         // Optionally, enable logging to capture the content of SOAP requests and responses.
         $user->LogDefaults();
 
-        // Instantiate the desired service class by calling the get***Service method on the AdWordsUser instance.
+        /*
+         * Instantiate the desired service class by calling $user->GetService([SERVICE], [VERSION])
+         * Example:
+         */
+
         /** @var CampaignService $campaignService */
         $campaignService = $user->GetService('CampaignService', 'v201509');
 
-        // Create data objects and invoke methods on the service class instance. The
-        // data objects and methods map directly to the data objects and requests for
-        // the corresponding web service.
+        /*
+         * Create data objects and invoke methods on the service class instance. The
+         * data objects and methods map directly to the data objects and requests for
+         * the corresponding web service.
+         */
 
-
-        // Create new campaign structure.
+        // Create new campaign structure
         $campaign = new Campaign();
         $campaign->name = 'Campaign #' . time();
         $campaign->status = 'ACTIVE';
@@ -95,7 +105,7 @@ class Service
         $operation->operator = 'ADD';
         $operations[] = $operation;
 
-        // Add campaign.
+        // Add campaign
         $campaignReturnValue = $campaignService->mutate($operations);
     }
 
@@ -105,7 +115,7 @@ class Service
         $user = new AdWordsUser();
         $user->SetClientCustomerId('INSERT_CLIENT_CUSTOMER_ID_HERE');
     }
-};
+}
 ```
 
 ### Best practices
