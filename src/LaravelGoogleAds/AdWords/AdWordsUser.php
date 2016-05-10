@@ -105,7 +105,7 @@ class AdWordsUser extends \AdWordsUser
             $settingsConfig,
             $defaultVersion,
             $defaultServer,
-            app_path(),
+            getcwd(),
             dirname(__FILE__)
         );
     }
