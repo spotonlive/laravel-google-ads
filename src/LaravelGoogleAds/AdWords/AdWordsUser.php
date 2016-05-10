@@ -3,6 +3,7 @@
 namespace LaravelGoogleAds\AdWords;
 
 use LaravelGoogleAds\Exceptions\ValidationException;
+use LaravelGoogleAds\Options\AdWords\ApiPropertyOptions;
 
 class AdWordsUser extends \AdWordsUser
 {
@@ -48,6 +49,13 @@ class AdWordsUser extends \AdWordsUser
     /** @var string */
     private $oauth2Handler;
 
+    /**
+     * @param null $developerToken
+     * @param null $userAgent
+     * @param null $clientCustomerId
+     * @param null $oauth2Info
+     * @throws ValidationException
+     */
     public function __construct(
         $developerToken = null,
         $userAgent = null,
@@ -59,11 +67,11 @@ class AdWordsUser extends \AdWordsUser
         $this->libName = $config['adWords']['build']['LIB_NAME'];
         $this->libVersion = $config['common']['build']['LIB_VERSION'];
 
-        $apiProperties = $config['adWords']['api.properties'];
+        $apiProperties = new ApiPropertyOptions($config['adWords']['api.properties']);
 
-        $versions = explode(',', $apiProperties['api.versions']);
+        $versions = explode(',', $apiProperties->get('api.versions'));
         $defaultVersion = $versions[count($versions) - 1];
-        $defaultServer = $apiProperties['api.server'];
+        $defaultServer = $apiProperties->get('api.server');
 
         $authConfig = $config['adWords']['auth'];
 
@@ -90,13 +98,15 @@ class AdWordsUser extends \AdWordsUser
             $oauth2Info
         );
 
+        // Settings
         $settingsConfig = $config['adWords']['settings'];
 
         $this->LoadSettings(
             $settingsConfig,
             $defaultVersion,
             $defaultServer,
-            getcwd(), dirname(__FILE__)
+            app_path(),
+            dirname(__FILE__)
         );
     }
 
