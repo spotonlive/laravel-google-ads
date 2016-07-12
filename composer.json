@@ -2,6 +2,7 @@
   "name": "nikolajlovenhardt/laravel-google-ads",
   "type": "library",
   "description": "Google Ads API for Laravel",
+  "minimum-stability": "dev",
   "keywords": [
     "laravel",
     "ads",
