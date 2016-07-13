@@ -21,7 +21,7 @@ class AdWordsService
     public function getCampaignsExample(AdWordsUser $user)
     {
         /** @var \CampaignService $campaignService */
-        $campaignService = $user->GetService('CampaignService', 'v201509');
+        $campaignService = $user->GetService('CampaignService', 'v201605');
 
         $selector = new Selector();
         $selector->fields = [

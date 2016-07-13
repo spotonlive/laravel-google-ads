@@ -34,7 +34,7 @@ define('LIB_PATH', 'Google/Api/Ads/AdWords/Lib');
 define('UTIL_PATH', 'Google/Api/Ads/Common/Util');
 define('ADWORDS_UTIL_PATH', 'Google/Api/Ads/AdWords/Util');
 
-define('ADWORDS_VERSION', 'v201509');
+define('ADWORDS_VERSION', 'v201605');
 
 // Configure include path
 ini_set('include_path', implode(array(
