@@ -45,7 +45,7 @@ class ApiPropertyOptions extends Options
         'api.server' => 'https://adwords.google.com',
         'api.versions' => 'v201601,v201603,v201605',
         'api.soapClientClassNamespace' => 'Google_Api_Ads_AdWords_Lib',
-        
+
         /*
          * v201601
          */
