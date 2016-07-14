@@ -67,7 +67,11 @@ class AdWordsUser extends \AdWordsUser
         $this->libName = $config['adWords']['build']['LIB_NAME'];
         $this->libVersion = $config['common']['build']['LIB_VERSION'];
 
-        $apiProperties = new ApiPropertyOptions($config['adWords']['api.properties']);
+        $apiProperties = new ApiPropertyOptions();
+
+        if (isset($config['adWords']['api.properties'])) {
+            $apiProperties = new ApiPropertyOptions($config['adWords']['api.properties']);
+        }
 
         $versions = explode(',', $apiProperties->get('api.versions'));
         $defaultVersion = $versions[count($versions) - 1];
