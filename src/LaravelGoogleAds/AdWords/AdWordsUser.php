@@ -4,6 +4,7 @@ namespace LaravelGoogleAds\AdWords;
 
 use LaravelGoogleAds\Exceptions\ValidationException;
 use LaravelGoogleAds\Options\AdWords\ApiPropertyOptions;
+use Logger;
 
 class AdWordsUser extends \AdWordsUser
 {
@@ -517,6 +518,47 @@ class AdWordsUser extends \AdWordsUser
                 'Either the refresh_token or the access_token is required.'
             );
         }
+    }
+
+    /**
+     * Init logs
+     */
+    protected function InitLogs()
+    {
+        Logger::LogToFile(
+            Logger::$SOAP_XML_LOG,
+            $this->logPath('soap_xml.log')
+        );
+
+        Logger::LogToFile(
+            Logger::$REQUEST_INFO_LOG,
+            $this->logPath('request_info.log')
+        );
+
+        Logger::SetLogLevel(
+            Logger::$SOAP_XML_LOG,
+            Logger::$FATAL
+        );
+
+        Logger::SetLogLevel(
+            Logger::$REQUEST_INFO_LOG,
+            Logger::$FATAL
+        );
+    }
+
+    /**
+     * Get log path
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function logPath($path)
+    {
+        return sprintf(
+            '%s/%s',
+            $this->getLogsDirectory(),
+            $path
+        );
     }
 
     /**
