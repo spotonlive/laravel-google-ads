@@ -1,0 +1,1 @@
+For examples, please visit https://github.com/googleads/googleads-php-lib/tree/master/examples

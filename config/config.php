@@ -3,7 +3,7 @@
 return [
     'common' => [
         'build' => [
-            'LIB_VERSION' => '9.1.0',
+            'LIB_VERSION' => '11.0.0',
             'LIB_NAME' => 'Common-PHP',
         ],
     ],
@@ -70,7 +70,7 @@ return [
             ],
 
             'SERVER' => [
-                'DEFAULT_VERSION' => 'v201605',
+                'DEFAULT_VERSION' => 'v201607',
                 'DEFAULT_SERVER' => 'https://adwords.google.com',
             ],
 
