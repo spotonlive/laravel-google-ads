@@ -85,7 +85,7 @@ class Service
          */
 
         /** @var CampaignService $campaignService */
-        $campaignService = $user->GetService('CampaignService', 'v201603');
+        $campaignService = $user->GetService('CampaignService', 'v201609');
 
         /*
          * Create data objects and invoke methods on the service class instance. The
