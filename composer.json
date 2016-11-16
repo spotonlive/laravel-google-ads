@@ -34,7 +34,10 @@
   "autoload": {
     "psr-4": {
       "LaravelGoogleAds\\": "src/LaravelGoogleAds"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
