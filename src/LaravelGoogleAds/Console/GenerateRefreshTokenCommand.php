@@ -3,10 +3,9 @@
 namespace LaravelGoogleAds\Console;
 
 use Exception;
-use Illuminate\Console\Command;
-use LaravelGoogleAds\AdWords\AdWordsUser;
-use LaravelGoogleAds\Services\AdWordsService;
 use OAuth2Exception;
+use Illuminate\Console\Command;
+use LaravelGoogleAds\Services\AdWordsService;
 
 class GenerateRefreshTokenCommand extends Command
 {
@@ -31,7 +30,6 @@ class GenerateRefreshTokenCommand extends Command
      */
     public function fire(AdWordsService $adWordsService)
     {
-        $user = new AdWordsUser();
         $authorizationUrl = $adWordsService->getOAuthAuthorizationUrl($user);
 
         // Post authorization URL

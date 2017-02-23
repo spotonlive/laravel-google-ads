@@ -2,64 +2,72 @@
 
 namespace LaravelGoogleAds\Services;
 
-use LaravelGoogleAds\AdWords\AdwordsUser;
+use Google\AdsApi\AdWords\AdWordsServices;
+use Google\AdsApi\AdWords\AdWordsSession;
+use Google\AdsApi\Common\AdsSoapClient;
+use Google\AdsApi\Common\Configuration;
+use Google\AdsApi\Common\OAuth2TokenBuilder;
+use Google\AdsApi\AdWords\AdWordsSessionBuilder;
+use Google\AdsApi\Common\SoapClient;
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use Google\Auth\Credentials\UserRefreshCredentials;
 
-class AdWordsService implements AdWordsServiceInterface
+class AdWordsService
 {
     /**
-     * Generate authorization url
+     * Get service
      *
-     * @param AdwordsUser $user
-     * @return string
-     * @throws \OAuth2Exception
+     * @param string $serviceClass
+     * @param null|string $customerClientId
+     * @return AdsSoapClient|SoapClient
      */
-    public function getOAuthAuthorizationUrl(AdwordsUser $user)
+    public function getService($serviceClass, $customerClientId = null)
     {
-        $redirectUri = null;
-        $offline = true;
+        $adwordsServices = new AdWordsServices();
 
-        /** @var \SimpleOAuth2Handler $oAuth2Handler */
-        $oAuth2Handler = $user->getOAuth2Handler();
-
-        /*
-         * Get the authorization URL for the OAuth2 token.
-         * No redirect URL is being used since this is an installed application. A web
-         * application would pass in a redirect URL back to the application,
-         * ensuring it's one that has been configured in the API console.
-         * Passing true for the second parameter ($offline) will provide us a refresh
-         * token which can used be refresh the access token when it expires.
-         */
-        $authorizationUrl = $oAuth2Handler->GetAuthorizationUrl(
-            $user->GetOAuth2Info(),
-            $redirectUri,
-            $offline
-        );
-
-        return $authorizationUrl;
+        return $adwordsServices->get($this->session($customerClientId), $serviceClass);
     }
 
     /**
-     * Get OAuth2 info
+     * Create a new session
      *
-     * @param AdwordsUser $user
-     * @param string $accessCode
-     * @param null $redirectUri
-     * @return array
-     * @throws \OAuth2Exception
+     * @param null|string $customerClientId
+     * @return AdWordsSession|mixed
      */
-    public function getOAuthCredentials(AdwordsUser $user, $accessCode, $redirectUri = null)
+    public function session($customerClientId = null)
     {
-        /** @var \SimpleOAuth2Handler $oAuth2Handler */
-        $oAuth2Handler = $user->getOAuth2Handler();
+        return ((new AdWordsSessionBuilder())
+            ->from($this->configuration($customerClientId))
+            ->withOAuth2Credential($this->oauth2Credentials($customerClientId))
+            ->build());
+    }
 
-        $accessToken = $oAuth2Handler->GetAccessToken(
-            $user->getOauth2Info(),
-            $accessCode,
-            $redirectUri
-        );
+    /**
+     * oAuth2 credentials
+     * @param null|string $customerClientId
+     * @return ServiceAccountCredentials|UserRefreshCredentials|mixed
+     */
+    private function oauth2Credentials($customerClientId = null)
+    {
+        return (new OAuth2TokenBuilder())
+            ->from($this->configuration())
+            ->build();
+    }
 
-        $user->setOauth2Info($accessToken);
+    /**
+     * Configuration
+     *
+     * @param string|null $customerClientId
+     * @return Configuration
+     */
+    private function configuration($customerClientId = null)
+    {
+        $config = config('google-ads');
 
-        return $user->getOauth2Info();
+        if ($customerClientId) {
+            $config['ADWORDS']['clientCustomerId'] = $customerClientId;
+        }
+
+        return new Configuration($config);
     }
 }

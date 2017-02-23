@@ -62,59 +62,37 @@ products.
 
 namespace App\Services;
 
-use Money;
-use Budget;
-use Campaign;
-use CampaignService;
-use CampaignOperation;
-use BiddingStrategyConfiguration;
-use LaravelGoogleAds\AdWords\AdWordsUser;
+use LaravelGoogleAds\Services\AdWordsService;
+use Google\AdsApi\AdWords\AdWordsServices;
+use Google\AdsApi\AdWords\AdWordsSessionBuilder;
+use Google\AdsApi\AdWords\v201609\cm\CampaignService;
+use Google\AdsApi\AdWords\v201609\cm\OrderBy;
+use Google\AdsApi\AdWords\v201609\cm\Paging;
+use Google\AdsApi\AdWords\v201609\cm\Selector;
 
 class Service
 {
+    /** @var AdWordsService */
+    protected $adWordsService;
+
     public function foo()
     {
-        $user = new AdWordsUser();
+        $customerClientId = 'xxx-xxx-xx';
 
-        // Optionally, enable logging to capture the content of SOAP requests and responses.
-        $user->LogDefaults();
+        $campaignService = $this->adWordsService->getService(CampaignService::class, $customerClientId);
 
-        /*
-         * Instantiate the desired service class by calling $user->GetService([SERVICE], [VERSION])
-         * Example:
-         */
+        // Create selector.
+        $selector = new Selector();
+        $selector->setFields(array('Id', 'Name'));
+        $selector->setOrdering(array(new OrderBy('Name', 'ASCENDING')));
 
-        /** @var CampaignService $campaignService */
-        $campaignService = $user->GetService('CampaignService', 'v201609');
+        // Create paging controls.
+        $selector->setPaging(new Paging(0, 100));
 
-        /*
-         * Create data objects and invoke methods on the service class instance. The
-         * data objects and methods map directly to the data objects and requests for
-         * the corresponding web service.
-         */
+        // Make the get request.
+        $page = $campaignService->get($selector);
 
-        // Create new campaign structure
-        $campaign = new Campaign();
-        $campaign->name = 'Campaign #' . time();
-        $campaign->status = 'ACTIVE';
-        $campaign->biddingStrategyConfiguration = new BiddingStrategyConfiguration();
-        $campaign->biddingStrategyConfiguration->biddingStrategyType = 'MANUAL_CPC';
-        $campaign->budget = new Budget('DAILY', new Money(50000000), 'STANDARD');
-
-        $operation = new CampaignOperation();
-        $operation->operand = $campaign;
-        $operation->operator = 'ADD';
-        $operations[] = $operation;
-
-        // Add campaign
-        $campaignReturnValue = $campaignService->mutate($operations);
-    }
-
-    public function bar()
-    {
-        // Create an AdWordsUser instance using the default constructor
-        $user = new AdWordsUser();
-        $user->SetClientCustomerId('INSERT_CLIENT_CUSTOMER_ID_HERE');
+        // Do something with the $page.
     }
 }
 ```
