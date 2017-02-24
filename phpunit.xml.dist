@@ -22,8 +22,8 @@
             <directory suffix=".php">./tests</directory>
 
             <exclude>
-                <file>./src/helpers.php</file>
-                <file>./src/LaravelGoogleAdsProvider.php</file>
+                <file>./src/LaravelGoogleAds/helpers.php</file>
+                <file>./src/LaravelGoogleAds/Provider.php</file>
                 <directory>./config</directory>
                 <directory>./src/LaravelGoogleAds/Console</directory>
             </exclude>
