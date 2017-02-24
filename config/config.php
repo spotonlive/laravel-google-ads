@@ -53,7 +53,7 @@ return [
 
         /*
          * For service account flow.
-         * jsonKeyFilePath = "INSERT_ABSOLUTE_PATH_TO_OAUTH2_JSON_KEY_FILE_HERE"
+         * 'jsonKeyFilePath' => 'INSERT_ABSOLUTE_PATH_TO_OAUTH2_JSON_KEY_FILE_HERE'
          * 'scopes' => 'https://www.googleapis.com/auth/adwords',
          */
     ],
