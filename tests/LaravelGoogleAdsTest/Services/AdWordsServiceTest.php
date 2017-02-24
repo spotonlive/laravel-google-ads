@@ -25,7 +25,7 @@ namespace
     }
 }
 
-namespace LaravelGoogleAdsTest\Exceptions
+namespace LaravelGoogleAdsTest\Services
 {
 
     use Google\AdsApi\AdWords\v201609\cm\CampaignService;

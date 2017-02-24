@@ -6,7 +6,6 @@ use Exception;
 use Google\Auth\OAuth2;
 use Illuminate\Console\Command;
 use Google\Auth\CredentialsLoader;
-use LaravelGoogleAds\Services\AdWordsService;
 
 class GenerateRefreshTokenCommand extends Command
 {
@@ -42,6 +41,9 @@ class GenerateRefreshTokenCommand extends Command
      */
     protected $description = 'Generate a new refresh token for Google Ads API';
 
+    /**
+     * Generate command
+     */
     public function fire()
     {
         if (!$config = $this->config()) {

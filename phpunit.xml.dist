@@ -22,7 +22,10 @@
             <directory suffix=".php">./tests</directory>
 
             <exclude>
-                <directory>./src/config</directory>
+                <file>./src/helpers.php</file>
+                <file>./src/LaravelGoogleAdsProvider.php</file>
+                <directory>./config</directory>
+                <directory>./src/LaravelGoogleAds/Console</directory>
             </exclude>
         </whitelist>
     </filter>
