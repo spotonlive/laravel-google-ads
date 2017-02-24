@@ -46,8 +46,8 @@ return [
 
         /*
          * For installed application or web application flow.
-         * 'clientId' = '',
-         * 'clientSecret' = '',
+         * 'clientId' => '',
+         * 'clientSecret' => '',
          * 'refreshToken' => '',
          */
 

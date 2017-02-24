@@ -1,114 +1,144 @@
 <?php
 
-namespace LaravelGoogleAdsTest\Exceptions;
+// @codingStandardsIgnoreStart
 
-use LaravelGoogleAds\AdWords\AdWordsUser;
-use LaravelGoogleAds\Services\AdWordsService;
-use OAuth2Handler;
-use PHPUnit_Framework_TestCase;
-
-require_once 'vendor/googleads/googleads-php-lib/src/Google/Api/Ads/Common/Util/UrlUtils.php';
-
-class AdWordsServiceTest extends PHPUnit_Framework_TestCase
+namespace
 {
-    /** @var AdWordsService */
-    protected $service;
+    /**
+     * Override laravels global config method
+     *
+     * @return array
+     */
+    function config() {
+        return [
+            'ADWORDS' => [
+                'developerToken' => 'A',
+                'clientCustomerId' => 'B',
+            ],
 
-    public function setUp()
-    {
-        $this->service = new AdWordsService();
-    }
-
-    public function testGetOAuthAuthorizationUrl()
-    {
-        $oAuth2Info = [
-            'demo' => 'info',
+            'OAUTH2' => [
+                 'clientId' => 'A',
+                 'clientSecret' => 'B',
+                 'refreshToken' => 'C',
+            ],
         ];
-
-        $authorizationUrl = 'demourl';
-
-        /** @var AdWordsUser $adWordsUser */
-        $adWordsUser = $this->getMockBuilder(AdWordsUser::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        /** @var OAuth2Handler $oAuth2Handler */
-        $oAuth2Handler = $this->getMockBuilder(OAuth2Handler::class)
-            ->disableOriginalConstructor()
-            ->setMethods([
-                'GetAuthorizationUrl',
-                'GetAccessToken',
-                'RefreshAccessToken',
-            ])
-            ->getMock();
-
-        $adWordsUser->expects($this->at(0))
-            ->method('getOAuth2Handler')
-            ->willReturn($oAuth2Handler);
-
-        $adWordsUser->expects($this->at(1))
-            ->method('GetOAuth2Info')
-            ->willReturn($oAuth2Info);
-
-        $oAuth2Handler->expects($this->once())
-            ->method('GetAuthorizationUrl')
-            ->with($oAuth2Info, null, true)
-            ->willReturn($authorizationUrl);
-
-        $result = $this->service->getOAuthAuthorizationUrl($adWordsUser);
-
-        $this->assertSame($authorizationUrl, $result);
     }
+}
 
-    public function testGetOAuthCredentials()
+namespace LaravelGoogleAdsTest\Exceptions
+{
+
+    use Google\AdsApi\AdWords\v201609\cm\CampaignService;
+    use Google\AdsApi\Common\Configuration;
+    use Google\Auth\Credentials\UserRefreshCredentials;
+    use LaravelGoogleAds\Services\AdWordsService;
+    use PHPUnit_Framework_TestCase;
+    use ReflectionClass;
+    use ReflectionException;
+    use ReflectionMethod;
+
+    class AdWordsServiceTest extends PHPUnit_Framework_TestCase
     {
-        $accessCode = 'demo access code';
-        $accessToken = 'this is a demo access token';
-        $redirectUri = 'http://github.coms';
+        // @codingStandardsIgnoreEnd
 
-        $oAuth2Info = [
-            'demo' => 'info',
-        ];
+        /** @var AdWordsService */
+        protected $service;
 
-        /** @var AdWordsUser $adWordsUser */
-        $adWordsUser = $this->getMockBuilder(AdWordsUser::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        public function setUp()
+        {
+            $this->service = new AdWordsService();
+        }
 
-        /** @var OAuth2Handler $oAuth2Handler */
-        $oAuth2Handler = $this->getMockBuilder(OAuth2Handler::class)
-            ->disableOriginalConstructor()
-            ->setMethods([
-                'GetAuthorizationUrl',
-                'GetAccessToken',
-                'RefreshAccessToken',
-            ])
-            ->getMock();
+        public function testConfiguration()
+        {
+            $method = self::getMethod('configuration', $this->service);
 
+            /** @var Configuration $result */
+            $result = $method->invoke($this->service);
 
-        $adWordsUser->expects($this->at(0))
-            ->method('getOAuth2Handler')
-            ->willReturn($oAuth2Handler);
+            $expectedConfiguration = config();
 
-        $adWordsUser->expects($this->at(1))
-            ->method('getOauth2Info')
-            ->willReturn($oAuth2Info);
+            $this->assertInstanceOf(Configuration::class, $result);
+            $this->assertSame($expectedConfiguration['ADWORDS'], $result->getConfiguration('ADWORDS'));
+        }
 
-        $adWordsUser->expects($this->at(2))
-            ->method('setOauth2Info')
-            ->with($accessToken);
+        public function testConfigurationWithClientCustomerId()
+        {
+            $clientCustomerId = '123-456-78';
 
-        $adWordsUser->expects($this->at(3))
-            ->method('getOauth2Info')
-            ->willReturn($oAuth2Info);
+            $method = self::getMethod('configuration', $this->service);
 
-        $oAuth2Handler->expects($this->at(0))
-            ->method('GetAccessToken')
-            ->with($oAuth2Info, $accessCode, $redirectUri)
-            ->willReturn($accessToken);
+            /** @var Configuration $result */
+            $result = $method->invokeArgs($this->service, [$clientCustomerId]);
 
-        $result = $this->service->getOAuthCredentials($adWordsUser, $accessCode, $redirectUri);
+            $expectedConfiguration = config();
+            $expectedConfiguration['ADWORDS']['clientCustomerId'] = $clientCustomerId;
 
-        $this->assertSame($oAuth2Info, $result);
+            $this->assertInstanceOf(Configuration::class, $result);
+            $this->assertSame($expectedConfiguration['ADWORDS'], $result->getConfiguration('ADWORDS'));
+        }
+
+        public function testOauth2Credentials()
+        {
+            $clientCustomerId = '123-456-78';
+
+            $method = self::getMethod('oauth2Credentials', $this->service);
+
+            /** @var UserRefreshCredentials $result */
+            $result = $method->invokeArgs($this->service, [$clientCustomerId]);
+
+            $this->assertInstanceOf(UserRefreshCredentials::class, $result);
+        }
+        
+        public function testSession()
+        {
+            $clientCustomerId = '123-456-78';
+
+            $config = config();
+            
+            $result = $this->service->session($clientCustomerId);
+
+            $this->assertSame($clientCustomerId, $result->getClientCustomerId());
+            $this->assertSame($config['ADWORDS']['developerToken'], $result->getDeveloperToken());
+        }
+
+        public function testGetService()
+        {
+            $service = CampaignService::class;
+
+            /** @var CampaignService $result */
+            $result = $this->service->getService($service);
+
+            $this->assertInstanceOf($service, $result);
+        }
+
+        public function testGetServiceInvalidServiceClass()
+        {
+            $service = 'InvalidServiceClass';
+
+            $this->setExpectedException(ReflectionException::class,
+                sprintf(
+                    'Class %s does not exist',
+                    $service
+                )
+            );
+
+            $this->service->getService($service);
+        }
+
+        /**
+         * Get method from class
+         *
+         * @param string $name
+         * @return ReflectionMethod
+         */
+        protected static function getMethod($name, $class)
+        {
+            $class = new ReflectionClass($class);
+            $method = $class->getMethod($name);
+            $method->setAccessible(true);
+
+            return $method;
+        }
     }
 }

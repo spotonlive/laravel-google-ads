@@ -18,36 +18,36 @@ class AdWordsService
      * Get service
      *
      * @param string $serviceClass
-     * @param null|string $customerClientId
+     * @param null|string $clientCustomerId
      * @return AdsSoapClient|SoapClient
      */
-    public function getService($serviceClass, $customerClientId = null)
+    public function getService($serviceClass, $clientCustomerId = null)
     {
         $adwordsServices = new AdWordsServices();
 
-        return $adwordsServices->get($this->session($customerClientId), $serviceClass);
+        return $adwordsServices->get($this->session($clientCustomerId), $serviceClass);
     }
 
     /**
      * Create a new session
      *
-     * @param null|string $customerClientId
+     * @param null|string $clientCustomerId
      * @return AdWordsSession|mixed
      */
-    public function session($customerClientId = null)
+    public function session($clientCustomerId = null)
     {
         return ((new AdWordsSessionBuilder())
-            ->from($this->configuration($customerClientId))
-            ->withOAuth2Credential($this->oauth2Credentials($customerClientId))
+            ->from($this->configuration($clientCustomerId))
+            ->withOAuth2Credential($this->oauth2Credentials($clientCustomerId))
             ->build());
     }
 
     /**
      * oAuth2 credentials
-     * @param null|string $customerClientId
+     * @param null|string $clientCustomerId
      * @return ServiceAccountCredentials|UserRefreshCredentials|mixed
      */
-    private function oauth2Credentials($customerClientId = null)
+    private function oauth2Credentials($clientCustomerId = null)
     {
         return (new OAuth2TokenBuilder())
             ->from($this->configuration())
@@ -57,15 +57,15 @@ class AdWordsService
     /**
      * Configuration
      *
-     * @param string|null $customerClientId
+     * @param string|null $clientCustomerId
      * @return Configuration
      */
-    private function configuration($customerClientId = null)
+    private function configuration($clientCustomerId = null)
     {
         $config = config('google-ads');
 
-        if ($customerClientId) {
-            $config['ADWORDS']['clientCustomerId'] = $customerClientId;
+        if ($clientCustomerId) {
+            $config['ADWORDS']['clientCustomerId'] = $clientCustomerId;
         }
 
         return new Configuration($config);
