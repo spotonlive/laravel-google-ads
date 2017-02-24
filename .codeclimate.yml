@@ -1,2 +1,12 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+ratings:
+  paths:
+  - "**.php"
 exclude_paths:
+- config/*
 - tests/*
