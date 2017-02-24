@@ -75,7 +75,7 @@ class Service
     /** @var AdWordsService */
     protected $adWordsService;
 
-    public function foo()
+    public function campaigns()
     {
         $customerClientId = 'xxx-xxx-xx';
 
