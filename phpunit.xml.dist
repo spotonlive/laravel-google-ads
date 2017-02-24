@@ -23,7 +23,7 @@
 
             <exclude>
                 <file>./src/LaravelGoogleAds/helpers.php</file>
-                <file>./src/LaravelGoogleAds/Provider.php</file>
+                <file>./src/LaravelGoogleAds/LaravelGoogleAdsProvider.php</file>
                 <directory>./config</directory>
                 <directory>./src/LaravelGoogleAds/Console</directory>
             </exclude>
