@@ -105,7 +105,8 @@ class Service
 ```
 
 ### Best practices
-[AdWords API Workshops Fall 2015](https://www.youtube.com/playlist?list=PLKByxjzUC-N8mEDQF9ARMMkSv0AmYbpsh)
+- [AdWords API Workshops Fall 2015](https://www.youtube.com/playlist?list=PLKByxjzUC-N8mEDQF9ARMMkSv0AmYbpsh)
+- [Best Practices in Reporting](https://www.youtube.com/watch?v=nRh-sIUqY84&index=2&list=PLKByxjzUC-N8mEDQF9ARMMkSv0AmYbpsh)
 
 ### Features, requirements, support etc.
 See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib/blob/master/README.md)
