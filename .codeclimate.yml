@@ -8,5 +8,5 @@ ratings:
   paths:
   - "**.php"
 exclude_paths:
-- config/*
-- tests/*
+- "config/"
+- "tests/"
