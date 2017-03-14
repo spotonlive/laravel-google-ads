@@ -87,4 +87,28 @@ return [
          * 'batchJobsUtilLogLevel' => 'INFO',
          */
     ],
+    'DFP' => [
+        'networkCode' => '',
+        'applicationName' => '',
+        'OAUTH2' => [
+            /*
+             * Required OAuth2 credentials. Uncomment and fill in the values for the
+             * appropriate flow based on your use case. See the README for guidance:
+             * https://github.com/googleads/googleads-php-lib/blob/master/README.md#getting-started
+             */
+
+            /*
+             * For installed application or web application flow.
+             * 'clientId' => '',
+             * 'clientSecret' => '',
+             * 'refreshToken' => '',
+             */
+
+            /*
+             * For service account flow.
+             * 'jsonKeyFilePath' => 'INSERT_ABSOLUTE_PATH_TO_OAUTH2_JSON_KEY_FILE_HERE'
+             * 'scopes' => 'https://www.googleapis.com/auth/adwords',
+             */
+        ],
+    ]
 ];
