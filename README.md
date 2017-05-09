@@ -74,6 +74,14 @@ class Service
 {
     /** @var AdWordsService */
     protected $adWordsService;
+    
+    /**
+     * @param AdWordsService $adWordsService
+     */
+    public function __construct(AdWordsService $adWordsService)
+    {
+        $this->adWordsService = $adWordsService;
+    }
 
     public function campaigns()
     {
@@ -91,8 +99,6 @@ class Service
 
         // Make the get request.
         $page = $campaignService->get($selector);
-
-        // Do something with the $page.
     }
 }
 ```
