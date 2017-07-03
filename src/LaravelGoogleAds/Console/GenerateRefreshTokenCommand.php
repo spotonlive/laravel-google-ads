@@ -43,7 +43,7 @@ class GenerateRefreshTokenCommand extends Command
         $clientId = $config['clientId'];
         $clientSecret = $config['clientSecret'];
 
-        $oauth2 = $authorizationService->oauth2($clientId, $clientSecret, 'http://slapi.dev/test2');
+        $oauth2 = $authorizationService->oauth2($clientId, $clientSecret, AuthorizationService::REDIRECT_URI);
 
         $this->line(sprintf(
             "Please sign in to your AdWords account, and open following url:\n%s",
