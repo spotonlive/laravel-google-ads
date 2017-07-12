@@ -66,7 +66,7 @@ class GenerateRefreshTokenCommand extends Command
             ['AdWords and DFP', self::ADWORDS_API_SCOPE.' '.self::DFP_API_SCOPE],
         ];
 
-        $api = $this->ask('Select the ads API you\'re using: [0] AdWords [1] DFP [2] Both');
+        $api = $this->ask("Select the ads API you\'re using: \n [0] AdWords \n [1] DFP \n [2] Both");
         if ($api === 2) {
             $this->info('[OPTIONAL] enter any additional OAuth2 scopes as a space '
                 .'delimited string here (the AdWords and DFP scopes are already '
