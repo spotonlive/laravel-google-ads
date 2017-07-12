@@ -11,38 +11,48 @@ class GenerateRefreshTokenCommand extends Command
 {
     /**
      * @var string the OAuth2 scope for the AdWords API
+     *
      * @see https://developers.google.com/adwords/api/docs/guides/authentication#scope
      */
     const ADWORDS_API_SCOPE = 'https://www.googleapis.com/auth/adwords';
 
     /**
+     * @var string the OAuth2 scope for the DFP API
+     *
+     * @see https://developers.google.com/doubleclick-publishers/docs/authentication#scope
+     */
+    const DFP_API_SCOPE = 'https://www.googleapis.com/auth/dfp';
+
+    /**
      * @var string the Google OAuth2 authorization URI for OAuth2 requests
+     *
      * @see https://developers.google.com/identity/protocols/OAuth2InstalledApp#formingtheurl
      */
     const AUTHORIZATION_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
 
     /**
      * @var string the redirect URI for OAuth2 installed application flows
+     *
      * @see https://developers.google.com/identity/protocols/OAuth2InstalledApp#formingtheurl
      */
     const REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob';
 
     /**
-     * Console command signature
+     * Console command signature.
      *
      * @var string
      */
     protected $signature = 'googleads:token:generate';
 
     /**
-     * Description
+     * Description.
      *
      * @var string
      */
     protected $description = 'Generate a new refresh token for Google Ads API';
 
     /**
-     * Generate command
+     * Generate command.
      */
     public function fire()
     {
@@ -50,9 +60,25 @@ class GenerateRefreshTokenCommand extends Command
             return $this->error('Please provide a valid configuration for Laravel Google Ads');
         }
 
+        $products = [
+            ['AdWords', self::ADWORDS_API_SCOPE],
+            ['DFP', self::DFP_API_SCOPE],
+            ['AdWords and DFP', self::ADWORDS_API_SCOPE.' '.self::DFP_API_SCOPE],
+        ];
+
+        $api = $this->ask('Select the ads API you\'re using: [0] AdWords [1] DFP [2] Both');
+        if ($api === 2) {
+            $this->info('[OPTIONAL] enter any additional OAuth2 scopes as a space '
+                .'delimited string here (the AdWords and DFP scopes are already '
+                .'included): ');
+        } else {
+            $this->info('[OPTIONAL] enter any additional OAuth2 scopes as a space '
+                .'delimited string here (the '.$products[$api][0].' scope is already included): ');
+        }
+
         $clientId = $config['clientId'];
         $clientSecret = $config['clientSecret'];
-        $scopes = self::ADWORDS_API_SCOPE;
+        $scopes = $products[$api][1];
 
         $oauth2 = new OAuth2([
             'authorizationUri' => self::AUTHORIZATION_URI,
@@ -60,14 +86,14 @@ class GenerateRefreshTokenCommand extends Command
             'tokenCredentialUri' => CredentialsLoader::TOKEN_CREDENTIAL_URI,
             'clientId' => $clientId,
             'clientSecret' => $clientSecret,
-            'scope' => $scopes
+            'scope' => $scopes,
         ]);
 
         $this->line(sprintf(
-            "Please sign in to your AdWords account, and open following url:\n%s",
-            $oauth2->buildFullAuthorizationUri([
-                'access_type' => 'offline',
-            ])
+            'Log into the Google account you use for %s and visit the following '
+           ."URL:\n%s\n\n",
+           $products[$api][0],
+           $oauth2->buildFullAuthorizationUri()
         ));
 
         // Retrieve token
@@ -95,7 +121,7 @@ class GenerateRefreshTokenCommand extends Command
     }
 
     /**
-     * Configuration
+     * Configuration.
      *
      * @return bool|array
      */
