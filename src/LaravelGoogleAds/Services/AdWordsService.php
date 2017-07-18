@@ -11,6 +11,7 @@ use Google\AdsApi\AdWords\AdWordsSessionBuilder;
 use Google\AdsApi\Common\SoapClient;
 use Google\Auth\Credentials\ServiceAccountCredentials;
 use Google\Auth\Credentials\UserRefreshCredentials;
+use Google\Auth\FetchAuthTokenInterface;
 
 class AdWordsService
 {
@@ -18,27 +19,33 @@ class AdWordsService
      * Get service
      *
      * @param string $serviceClass
-     * @param null|string $clientCustomerId
+     * @param string|null $clientCustomerId
+     * @param string|null $credentials
      * @return AdsSoapClient|SoapClient
      */
-    public function getService($serviceClass, $clientCustomerId = null)
+    public function getService($serviceClass, $clientCustomerId = null, $credentials = null)
     {
         $adwordsServices = new AdWordsServices();
 
-        return $adwordsServices->get($this->session($clientCustomerId), $serviceClass);
+        $session = $this->session($clientCustomerId, $credentials);
+
+        return $adwordsServices->get($session, $serviceClass);
     }
 
     /**
      * Create a new session
      *
      * @param null|string $clientCustomerId
+     * @param string|null $credentials
      * @return AdWordsSession|mixed
      */
-    public function session($clientCustomerId = null)
+    public function session($clientCustomerId = null, $credentials = null)
     {
+        $credentials = (is_null($credentials)) ? $this->oauth2Credentials($clientCustomerId) : $credentials;
+
         return ((new AdWordsSessionBuilder())
             ->from($this->configuration($clientCustomerId))
-            ->withOAuth2Credential($this->oauth2Credentials($clientCustomerId))
+            ->withOAuth2Credential($credentials)
             ->build());
     }
 
@@ -64,7 +71,7 @@ class AdWordsService
     {
         $config = config('google-ads');
 
-        if ($clientCustomerId) {
+        if (!is_null($clientCustomerId)) {
             $config['ADWORDS']['clientCustomerId'] = $clientCustomerId;
         }
 
