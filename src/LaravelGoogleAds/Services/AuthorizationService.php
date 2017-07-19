@@ -20,6 +20,13 @@ class AuthorizationService
     const ADWORDS_API_SCOPE = 'https://www.googleapis.com/auth/adwords';
 
     /**
+     * @var string the OAuth2 scope for the DFP API
+     *
+     * @see https://developers.google.com/doubleclick-publishers/docs/authentication#scope
+     */
+    const DFP_API_SCOPE = 'https://www.googleapis.com/auth/dfp';
+
+    /**
      * @var string the redirect URI for OAuth2 installed application flows
      * @see https://developers.google.com/identity/protocols/OAuth2InstalledApp#formingtheurl
      */
