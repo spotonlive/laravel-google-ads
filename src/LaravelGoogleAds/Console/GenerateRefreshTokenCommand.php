@@ -37,22 +37,33 @@ class GenerateRefreshTokenCommand extends Command
 
         if (!$config = $this->config()) {
             $this->error('Please provide a valid configuration for Laravel Google Ads');
+
             return;
         }
 
         $clientId = $config['clientId'];
         $clientSecret = $config['clientSecret'];
 
-        $oauth2 = $authorizationService->oauth2($clientId, $clientSecret, AuthorizationService::REDIRECT_URI);
+        // Scopes
+
+        $scopes = $this->scopes();
+
+        $oauth2 = $authorizationService->oauth2(
+            $clientId,
+            $clientSecret,
+            AuthorizationService::REDIRECT_URI,
+            implode(" ", $scopes)
+        );
 
         $this->line(sprintf(
-            "Please sign in to your AdWords account, and open following url:\n%s",
+            "Please sign in to your Google Account, and navigate to the following url:\n%s",
             $authorizationService->buildFullAuthorizationUri($oauth2, true, [
                 'prompt' => 'consent',
             ])
         ));
 
         // Retrieve token
+
         $accessToken = $this->ask('Insert the code you received from Google');
 
         // Fetch auth token
@@ -77,6 +88,32 @@ class GenerateRefreshTokenCommand extends Command
     }
 
     /**
+     * Select scopes
+     *
+     * @return array
+     */
+    private function scopes()
+    {
+        $scopes = [];
+
+        foreach ($this->products() as $product => $scope) {
+            if (!$this->confirm(sprintf('Would you like to activate %s?', $product), true)) {
+                continue;
+            }
+
+            array_push($scopes, $scope);
+        }
+
+        if (!count($scopes)) {
+            $this->error('You have to select at least one scope');
+
+            return $this->scopes();
+        }
+
+        return $scopes;
+    }
+
+    /**
      * Configuration
      *
      * @return bool|array
@@ -91,5 +128,18 @@ class GenerateRefreshTokenCommand extends Command
         }
 
         return $config['OAUTH2'];
+    }
+
+    /**
+     * Products
+     *
+     * @return array
+     */
+    private function products()
+    {
+        return [
+            'AdWords' => AuthorizationService::ADWORDS_API_SCOPE,
+            'DFP' => AuthorizationService::DFP_API_SCOPE,
+        ];
     }
 }
