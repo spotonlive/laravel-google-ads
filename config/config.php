@@ -26,6 +26,11 @@ return [
          */
     ],
 
+    'DFP' => [
+        'networkCode' => '',
+        'applicationName' => '',
+    ],
+
     'ADWORDS_REPORTING' => [
         /*
          * Optional reporting settings.
