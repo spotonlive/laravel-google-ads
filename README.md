@@ -13,7 +13,7 @@ Integration of [`googleads/googleads-php-lib`](https://github.com/googleads/goog
 
 #### Laravel
 
-- Add provider to config/app.php
+- **(Only for Laravel 5.4 or minor)** Add provider to config/app.php
 
 ```php
 'providers' => [
