@@ -29,6 +29,17 @@ class GenerateRefreshTokenCommand extends Command
     }
 
     /**
+     * Execute the console command.
+     *
+     * @return mixed
+     * @version Laravel 5.0+
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Generate command
      */
     public function fire()
