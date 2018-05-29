@@ -28,7 +28,7 @@ namespace
 namespace LaravelGoogleAdsTest\Services
 {
 
-    use Google\AdsApi\AdWords\v201710\cm\CampaignService;
+    use Google\AdsApi\AdWords\v201802\cm\CampaignService;
     use Google\AdsApi\Common\Configuration;
     use Google\Auth\Credentials\UserRefreshCredentials;
     use LaravelGoogleAds\Services\AdWordsService;
