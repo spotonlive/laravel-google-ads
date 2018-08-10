@@ -1,5 +1,5 @@
 {
-  "name": "nikolajlovenhardt/laravel-google-ads",
+  "name": "spotonlive/laravel-google-ads",
   "type": "library",
   "description": "Google Ads API for Laravel",
   "minimum-stability": "dev",
