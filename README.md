@@ -112,3 +112,7 @@ See [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-l
 
 ### Dependencies
 - [`googleads/googleads-php-lib`](https://github.com/googleads/googleads-php-lib) hosts the PHP client library for the various SOAP-based Ads APIs (AdWords, AdExchange Buyer, and DFP) at Google.
+
+### Credits
+- [`SpotOn Marketing`](https://spotonmarketing.dk/)
+- [`nikolajlovenhardt`](https://github.com/nikolajlovenhardt)
