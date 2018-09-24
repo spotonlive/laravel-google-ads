@@ -65,10 +65,10 @@ namespace App\Services;
 use LaravelGoogleAds\Services\AdWordsService;
 use Google\AdsApi\AdWords\AdWordsServices;
 use Google\AdsApi\AdWords\AdWordsSessionBuilder;
-use Google\AdsApi\AdWords\v201609\cm\CampaignService;
-use Google\AdsApi\AdWords\v201609\cm\OrderBy;
-use Google\AdsApi\AdWords\v201609\cm\Paging;
-use Google\AdsApi\AdWords\v201609\cm\Selector;
+use Google\AdsApi\AdWords\v201806\cm\CampaignService;
+use Google\AdsApi\AdWords\v201806\cm\OrderBy;
+use Google\AdsApi\AdWords\v201806\cm\Paging;
+use Google\AdsApi\AdWords\v201806\cm\Selector;
 
 class Service
 {
