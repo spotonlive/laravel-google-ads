@@ -1,5 +1,9 @@
 language: php
 
+cache:
+  directories:
+    - $HOME/vendor
+
 php:
   - 5.6
   - 7.1
