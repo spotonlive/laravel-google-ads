@@ -28,7 +28,7 @@ namespace
 namespace LaravelGoogleAdsTest\Services
 {
 
-    use Google\AdsApi\AdWords\v201802\cm\CampaignService;
+    use Google\AdsApi\AdWords\v201809\cm\CampaignService;
     use Google\AdsApi\Common\Configuration;
     use Google\Auth\Credentials\UserRefreshCredentials;
     use LaravelGoogleAds\Services\AdWordsService;
@@ -89,13 +89,13 @@ namespace LaravelGoogleAdsTest\Services
 
             $this->assertInstanceOf(UserRefreshCredentials::class, $result);
         }
-        
+
         public function testSession()
         {
             $clientCustomerId = '123-456-78';
 
             $config = config();
-            
+
             $result = $this->service->session($clientCustomerId);
 
             $this->assertSame($clientCustomerId, $result->getClientCustomerId());
