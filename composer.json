@@ -24,7 +24,7 @@
     "ext-soap": "*",
     "illuminate/console": "^5.1",
     "illuminate/support": "^5.1",
-    "googleads/googleads-php-lib": "^38.0"
+    "googleads/googleads-php-lib": "^40.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
